@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
    ActivityLoginBinding binding;
     FirebaseAuth auth;
     ProgressDialog pd;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +35,26 @@ public class LoginActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setTitle("Already logged In!");
         pd.setCanceledOnTouchOutside(false);
-        pd.show();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+
+
                 if (auth.getCurrentUser() != null){
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     finish();
                     pd.dismiss();
                 }
-            }
-        },1200);
+
+
+        sharedPreferences = getSharedPreferences("onBindingScree",MODE_PRIVATE);
+        boolean isFirstTime = sharedPreferences.getBoolean("firstTime",true);
+
+        if (isFirstTime){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstTime",false);
+            editor.commit();
+            startActivity(new Intent(LoginActivity.this,OnBoardActivity.class));
+            finish();
+        }
 
 
 

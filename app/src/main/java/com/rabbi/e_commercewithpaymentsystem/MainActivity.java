@@ -1,17 +1,33 @@
 package com.rabbi.e_commercewithpaymentsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.rabbi.e_commercewithpaymentsystem.fragments.HomeFragment;
+
 public class MainActivity extends AppCompatActivity {
+
+    Fragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "hi", Toast.LENGTH_SHORT).show();
+        homeFragment = new HomeFragment();
+        loadFragment(homeFragment);
+
+
+    }
+
+    private void loadFragment(Fragment homeFragment) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.home_container,homeFragment);
+        transaction.commit();
     }
 }
