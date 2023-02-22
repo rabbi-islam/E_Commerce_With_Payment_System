@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">E-Commerce With Payment System</string>
+
+    <string name="first_slide">Choose Your Products</string>
+    <string name="second_slide">Fast Delivery</string>
+    <string name="third_slide">Good Service</string>
+
+    <string name="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi autem blanditiis cumque esse est impedit iusto libero omnis praesentium quo.</string>
+</resources>

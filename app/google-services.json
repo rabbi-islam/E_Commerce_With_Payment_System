@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "544648517761",
+    "project_id": "e-commerce-with-payment-system",
+    "storage_bucket": "e-commerce-with-payment-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544648517761:android:663fe4491b7ce0e06e5580",
+        "android_client_info": {
+          "package_name": "com.rabbi.e_commercewithpaymentsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544648517761-feake3hui48528v39q86ncfob5d5vrr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLyACWQBcBsHAYrlRa2sXnnLUl7mmCfEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544648517761-feake3hui48528v39q86ncfob5d5vrr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
