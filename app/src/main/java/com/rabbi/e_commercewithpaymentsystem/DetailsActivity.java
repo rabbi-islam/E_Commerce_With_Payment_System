@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ public class DetailsActivity extends AppCompatActivity {
     NewProductsModel productsModel=null;
     PopularProductModel popularProductModel =null;
     FirebaseAuth auth;
+    int totalQuantity = 1;
+    int totalPrice =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class DetailsActivity extends AppCompatActivity {
             binding.detailsDesc.setText(productsModel.getDescription());
             binding.rating.setText(productsModel.getRating());
             binding.detailsPrice.setText(String.valueOf(productsModel.getPrice()));
+
+            totalPrice = productsModel.getPrice() * totalQuantity;
         }
         if (popularProductModel != null){
             Glide.with(getApplicationContext()).load(popularProductModel.getImage_url()).into(binding.detailsImage);
@@ -57,12 +63,65 @@ public class DetailsActivity extends AppCompatActivity {
             binding.detailsDesc.setText(popularProductModel.getDesc());
             binding.rating.setText(popularProductModel.getRating());
             binding.detailsPrice.setText(String.valueOf(popularProductModel.getProduct_price()));
+            totalPrice = popularProductModel.getProduct_price() * totalQuantity;
         }
         
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddToCart();
+            }
+        });
+
+        binding.plusIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (totalQuantity < 10 ){
+                    totalQuantity++;
+                    binding.quantity.setText(String.valueOf(totalQuantity));
+
+                    if (productsModel != null){
+                        totalPrice = productsModel.getPrice() * totalQuantity;
+                    }
+                    if (popularProductModel != null){
+                        totalPrice = popularProductModel.getProduct_price() * totalQuantity;
+                    }
+                }
+            }
+        });
+
+        binding.minusIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (totalQuantity > 1 ){
+                    totalQuantity--;
+                    binding.quantity.setText(String.valueOf(totalQuantity));
+                    if (productsModel != null){
+                        totalPrice = productsModel.getPrice() * totalQuantity;
+                    }
+                    if (popularProductModel != null){
+                        totalPrice = popularProductModel.getProduct_price() * totalQuantity;
+                    }
+                }
+            }
+        });
+
+        binding.quantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                totalQuantity = Integer.parseInt(binding.quantity.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -83,6 +142,8 @@ public class DetailsActivity extends AppCompatActivity {
         cartList.put("productPrice",binding.detailsPrice.getText().toString());
         cartList.put("currentDate",currentDate);
         cartList.put("currentTime",currentTime);
+        cartList.put("quantity",totalQuantity);
+        cartList.put("totalPrice",totalPrice);
 
         db.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("User")
                 .add(cartList).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
