@@ -1,6 +1,8 @@
 package com.rabbi.e_commercewithpaymentsystem.models;
 
-public class NewProductsModel {
+import java.io.Serializable;
+
+public class NewProductsModel implements Serializable {
 
    private String description,imgUrl,name;
    private int price;

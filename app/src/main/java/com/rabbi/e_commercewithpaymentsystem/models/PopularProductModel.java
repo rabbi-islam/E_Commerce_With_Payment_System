@@ -1,15 +1,19 @@
 package com.rabbi.e_commercewithpaymentsystem.models;
 
-public class PopularProductModel {
-   private String image_url,product_name;
-   private  int product_price;
+import java.io.Serializable;
+
+public class PopularProductModel implements Serializable {
+    private String image_url, product_name, rating, desc;
+    private int product_price;
 
     public PopularProductModel() {
     }
 
-    public PopularProductModel(String image_url, String product_name, int product_price) {
+    public PopularProductModel(String image_url, String product_name, String rating, String desc, int product_price) {
         this.image_url = image_url;
         this.product_name = product_name;
+        this.rating = rating;
+        this.desc = desc;
         this.product_price = product_price;
     }
 
@@ -27,6 +31,22 @@ public class PopularProductModel {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getProduct_price() {

@@ -2,6 +2,7 @@ package com.rabbi.e_commercewithpaymentsystem.fragments;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    ProgressDialog pd;
     RecyclerView categoryRecyclerView;
     RecyclerView productRecyclerView;
     RecyclerView popularRecyclerView;
@@ -64,6 +66,10 @@ public class HomeFragment extends Fragment {
         productRecyclerView = view.findViewById(R.id.new_product_rec);
         popularRecyclerView = view.findViewById(R.id.popular_rec);
         db = FirebaseFirestore.getInstance();
+        pd = new ProgressDialog(getContext());
+        pd.setTitle("Welcome to Sansmo!");
+        pd.setMessage("making your dream fulfill");
+        pd.show();
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.banner1,"Discount On Shoes Item", ScaleTypes.CENTER_CROP));
@@ -95,6 +101,7 @@ public class HomeFragment extends Fragment {
                                 CategoryModel categoryModel = snapshot.toObject(CategoryModel.class);
                                 categoryModelList.add(categoryModel);
                                 adapter.notifyDataSetChanged();
+                                pd.dismiss();
                             }
                         }else
                         {
@@ -103,6 +110,7 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+
     }
     private void setNewProductRecyclerview() {
         productRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
