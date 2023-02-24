@@ -1,6 +1,7 @@
 package com.rabbi.e_commercewithpaymentsystem.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rabbi.e_commercewithpaymentsystem.R;
+import com.rabbi.e_commercewithpaymentsystem.ShowAllActivity;
 import com.rabbi.e_commercewithpaymentsystem.models.CategoryModel;
 
 import java.util.List;
@@ -44,6 +46,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
 
         holder.catName.setText(categoryList.get(position).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShowAllActivity.class);
+                intent.putExtra("type",categoryList.get(holder.getAdapterPosition()).getType());
+                context.startActivity(intent);
+            }
+        });
 
     }
 

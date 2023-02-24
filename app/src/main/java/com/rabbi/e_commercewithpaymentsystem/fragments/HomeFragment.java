@@ -1,8 +1,7 @@
 package com.rabbi.e_commercewithpaymentsystem.fragments;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -26,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.rabbi.e_commercewithpaymentsystem.R;
+import com.rabbi.e_commercewithpaymentsystem.ShowAllActivity;
 import com.rabbi.e_commercewithpaymentsystem.adapters.NewProductsAdapter;
 import com.rabbi.e_commercewithpaymentsystem.adapters.CategoryAdapter;
 import com.rabbi.e_commercewithpaymentsystem.adapters.PopularProductAdapter;
@@ -39,6 +39,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    TextView catSeeAll,popularProdSeeAll,newProdSeeAll;
     ProgressDialog pd;
     RecyclerView categoryRecyclerView;
     RecyclerView productRecyclerView;
@@ -62,14 +63,27 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        categoryRecyclerView = view.findViewById(R.id.rec_category);
-        productRecyclerView = view.findViewById(R.id.new_product_rec);
-        popularRecyclerView = view.findViewById(R.id.popular_rec);
-        db = FirebaseFirestore.getInstance();
-        pd = new ProgressDialog(getContext());
-        pd.setTitle("Welcome to Sansmo!");
-        pd.setMessage("making your dream fulfill");
-        pd.show();
+
+        init(view);
+        catSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ShowAllActivity.class));
+            }
+        });
+        newProdSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ShowAllActivity.class));
+            }
+        });
+        popularProdSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ShowAllActivity.class));
+            }
+        });
+
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.banner1,"Discount On Shoes Item", ScaleTypes.CENTER_CROP));
@@ -83,6 +97,20 @@ public class HomeFragment extends Fragment {
         setPopularProductRecyclerview();
 
         return view;
+    }
+
+    private void init(View view) {
+        categoryRecyclerView = view.findViewById(R.id.rec_category);
+        productRecyclerView = view.findViewById(R.id.new_product_rec);
+        popularRecyclerView = view.findViewById(R.id.popular_rec);
+        catSeeAll = view.findViewById(R.id.category_see_all);
+        newProdSeeAll = view.findViewById(R.id.newProducts_see_all);
+        popularProdSeeAll = view.findViewById(R.id.popular_see_all);
+        db = FirebaseFirestore.getInstance();
+        pd = new ProgressDialog(getContext());
+        pd.setTitle("Welcome to Sansmo!");
+        pd.setMessage("making your dream fulfill");
+        pd.show();
     }
 
 
