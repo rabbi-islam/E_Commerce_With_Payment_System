@@ -2,10 +2,16 @@ package com.rabbi.e_commercewithpaymentsystem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,15 +36,21 @@ public class CartActivity extends AppCompatActivity {
     List<CartModel> cartModels;
     FirebaseFirestore db;
     FirebaseAuth auth;
+    int overAllAmount = 0;
+
+    TextView totalPriceTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        totalPriceTv = findViewById(R.id.totalPriceTv);
         cartRecyclerView = findViewById(R.id.card_rec);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,new IntentFilter("MyTotalAmount"));
         setCartRecyclerview();
     }
 
@@ -67,4 +79,14 @@ public class CartActivity extends AppCompatActivity {
                 });
 
     }
+
+    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int finalBill = intent.getIntExtra("totalAmount",0);
+            totalPriceTv.setText("Total Price: "+finalBill+ " $");
+
+        }
+    };
 }

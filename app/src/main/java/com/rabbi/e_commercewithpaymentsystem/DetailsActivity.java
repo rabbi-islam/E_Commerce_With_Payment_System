@@ -3,6 +3,7 @@ package com.rabbi.e_commercewithpaymentsystem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -65,6 +66,13 @@ public class DetailsActivity extends AppCompatActivity {
             binding.detailsPrice.setText(String.valueOf(popularProductModel.getProduct_price()));
             totalPrice = popularProductModel.getProduct_price() * totalQuantity;
         }
+
+        binding.buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DetailsActivity.this,AddressActivity.class));
+            }
+        });
         
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override

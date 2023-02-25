@@ -1,12 +1,14 @@
 package com.rabbi.e_commercewithpaymentsystem.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rabbi.e_commercewithpaymentsystem.R;
@@ -18,6 +20,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewAdapte
 
     Context context;
     List<CartModel> list;
+    int totalAmount=0;
 
     public CartAdapter(Context context, List<CartModel> list) {
         this.context = context;
@@ -40,6 +43,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewAdapte
         holder.price.setText(list.get(position).getProductPrice());
         holder.quantity.setText(String.valueOf(list.get(position).getQuantity()));
         holder.totalPrice.setText(String.valueOf(list.get(position).getTotalPrice()));
+
+        totalAmount = totalAmount + list.get(position).getTotalPrice();
+        Intent intent = new Intent("MyTotalAmount");
+        intent.putExtra("totalAmount",totalAmount);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
     }
 

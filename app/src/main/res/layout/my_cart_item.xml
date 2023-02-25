@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/amethysta"
-                android:text="Total Price "
+                android:text="Total Price: "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/amethysta"
-                android:text="Total Quantity "
+                android:text="Total Quantity: "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
