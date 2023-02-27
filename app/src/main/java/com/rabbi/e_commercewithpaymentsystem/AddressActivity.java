@@ -23,6 +23,8 @@ import com.rabbi.e_commercewithpaymentsystem.adapters.AddressAdapter;
 import com.rabbi.e_commercewithpaymentsystem.adapters.CategoryAdapter;
 import com.rabbi.e_commercewithpaymentsystem.models.AddressModel;
 import com.rabbi.e_commercewithpaymentsystem.models.CategoryModel;
+import com.rabbi.e_commercewithpaymentsystem.models.NewProductsModel;
+import com.rabbi.e_commercewithpaymentsystem.models.PopularProductModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,8 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        Object obj = getIntent().getSerializableExtra("item");
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.address_recycler);
@@ -67,7 +71,19 @@ public class AddressActivity extends AppCompatActivity implements AddressAdapter
         payment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddressActivity.this,PaymentActivity.class));
+
+                double amount = 0.0;
+                if (obj instanceof NewProductsModel){
+                    NewProductsModel productsModel = (NewProductsModel) obj;
+                    amount = productsModel.getPrice();
+                }
+                if (obj instanceof PopularProductModel){
+                    PopularProductModel popularProductModel = (PopularProductModel) obj;
+                    amount = popularProductModel.getProduct_price();
+                }
+                Intent intent = new Intent(AddressActivity.this,PaymentActivity.class);
+                intent.putExtra("amount",amount);
+                startActivity(intent);
             }
         });
     }

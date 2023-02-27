@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PaymentActivity">
+    tools:context="PaymentActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/payment_toolbar"
@@ -21,11 +21,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="340dp"
-        android:layout_height="244dp"
+        android:layout_width="260dp"
+        android:layout_height="210dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payment_toolbar"
         app:srcCompat="@drawable/card_prev" />

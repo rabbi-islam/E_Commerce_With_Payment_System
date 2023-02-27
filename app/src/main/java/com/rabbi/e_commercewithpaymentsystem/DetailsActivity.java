@@ -70,7 +70,16 @@ public class DetailsActivity extends AppCompatActivity {
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DetailsActivity.this,AddressActivity.class));
+                Intent intent = new Intent(DetailsActivity.this,AddressActivity.class);
+                if (productsModel != null){
+                    intent.putExtra("item",productsModel);
+                }
+
+                if (popularProductModel != null){
+                    intent.putExtra("item",popularProductModel);
+                }
+
+                startActivity(intent);
             }
         });
         
